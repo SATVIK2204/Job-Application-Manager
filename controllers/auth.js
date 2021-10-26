@@ -4,17 +4,17 @@ const { BadRequestError, UnauthenticatedError } = require('../errors')
 
 const register = async (req, res) => {
   try {
-    console.log('here');
-    // res.send('<p>e</p>')
-    res.render('login',{layout: './layouts/login',userExist: true});
+    
+    
     let user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      // res.render('login', { layout: './layouts/login', userExist: true });
+      res.render('login', { layout: './layouts/login', userExist: true });
     } else {
       const user = await User.create({ ...req.body });
 
       const token = user.createJWT();
+      res.render('homepage', { layout: './layouts/main' });
       res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
     }
   } catch (err) {
@@ -24,6 +24,8 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
+  
+  
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -39,6 +41,7 @@ const login = async (req, res) => {
   }
   // compare password
   const token = user.createJWT()
+  
   res.status(StatusCodes.OK).json({ user: { name: user.name }, token })
 }
 
