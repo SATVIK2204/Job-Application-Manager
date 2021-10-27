@@ -1,0 +1,48 @@
+<!-- <h1>Hello </h1>
+<h1>Jobs API</h1><a href="/api-docs">Documentation</a> -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Job Application Manager</span>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="form-container">
+                <form action="/auth/login" method="POST">
+                    <p>
+                    <h3 class="text-center">Login</h3>
+                    </p>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    </div>
+                    
+                        
+                        <label class="form-check-label" for="exampleCheck1">Not Registered? <a href="/register">Register</a></label>
+                        
+                    <% if( locals.userExist!= undefined  && userExist) { %>
+                        <p> userExist</p>
+                    <% } else {%>
+                        <br />
+                        <br />
+                    <% }   %>
+                    
+
+                    <div class="d-grid gap-1">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
