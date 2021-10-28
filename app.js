@@ -1,33 +1,30 @@
+// MISC
 require('dotenv').config();
-require('express-async-errors');
+const morgan = require('morgan');
+const express = require('express');
+const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const methodOverride = require('method-override');
+const connectDB = require('./db/connect');
+const authenticateUser = require('./middleware/authentication');
 
 // extra security packages
 const helmet = require('helmet');
 const cors = require('cors');
 const xss = require('xss-clean');
-const rateLimiter = require('express-rate-limit');
-
-// Swagger
-// const swaggerUI = require('swagger-ui-express');
-// const YAML = require('yamljs');
-// const swaggerDocument = YAML.load('./swagger.yaml');
-const morgan = require('morgan');
-const express = require('express');
-const app = express();
-
-const connectDB = require('./db/connect');
-const authenticateUser = require('./middleware/authentication');
+// const rateLimiter = require('express-rate-limit');
 
 // routers
 const authRouter = require('./routes/auth');
 const jobsRouter = require('./routes/jobs');
+
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
+require('express-async-errors');
 
+// Setting proxy
 // app.set('trust proxy', 1);
 // app.use(
 //   rateLimiter({
@@ -36,13 +33,14 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 //   })
 // );
 
-const expressLayouts = require('express-ejs-layouts');
+// Setting up middlewares
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(xss());
 app.use(cookieParser());
+
 
 // Method override
 app.use(
@@ -55,18 +53,19 @@ app.use(
     }
   })
 )
+
 // Logging
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Setting up view Engine
+const expressLayouts = require('express-ejs-layouts');
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 
-
-
-// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // routes
 app.use('/', require('./routes/index'));
