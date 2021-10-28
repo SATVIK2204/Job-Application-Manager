@@ -1,0 +1,108 @@
+
+<!-- Add JOB FORM -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3 addnew">
+            <form action="/jobs/" method="POST">
+                <div class="form-container-2 row ">
+                    
+                        <div class="col-4">
+                            <input type="company" class="form-control" placeholder="Company"  name="company">
+                        </div>
+                        
+                        <div class="col-4">
+                            <input type="role" class="form-control" placeholder="Role"  name="role">
+                        </div>
+                        <div class="col-4">
+                            <!-- <input type="troleext" class="form-control" placeholder="Role" name="role"> -->
+                            <!-- <label class="class-label" for="updateStatus">Status</label> -->
+                            <select class="form-select" id="updateStatus" name="status">
+                                <option class="defualt" value="" disabled selected hidden>Select the status</option>
+                                <option value="Accepted">Accepted</option>
+                                <option value="Interviewing">Interviewing</option>
+                                <option value="Declined">Declined</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+                        
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-primary" style="margin-top: 15px;" type="submit">Add Job</button>
+                        
+                        </div>
+                        
+                </div>
+                
+                
+            </form>
+           
+        </div>
+    </div>
+
+</div>
+
+<div class="container cardmy ">
+    
+
+    <% if (jobs.length) { %>
+        <div class="col d-flex justify-content-center">
+            <div class="card homepage text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h3 class="card-title">Your Jobs</h3>
+        
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% for(var i=0; i < jobs.length; i++) { %>
+            <div class="col">
+                <div class="card homepage">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= jobs[i]['company'] %> </h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><%= jobs[i]['role'] %></h6>
+                        <p class="card-text"><%= jobs[i]['status'] %></p>
+                        
+                        
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                            <!-- Update Button -->
+                            <form action="/update" method="POST" id="update-form">
+                        
+                                <input type="hidden" name="jobid" value="<%= jobs[i]['_id'] %>">
+                                <button type="submit" class="btn btn-outline-success" >Update</button>
+                            
+                            </form>
+
+                            <!-- Delete Button -->
+                            <form action="/jobs/<%= jobs[i]['_id'] %> " method="POST" id="delete-form">
+                                <input type="hidden" name="_method" value="DELETE">
+                                
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                
+                            </form>
+                        </div>
+
+                        <!-- <a href="#" class="card-link">Another link</a> -->
+                    </div>
+                </div>
+            </div>
+            
+            <% } %>
+        </div>
+        
+    <% } else { %>
+        <div class="col d-flex justify-content-center">
+            <div class="card homepage text-center" style="width: 18rem;">
+                <div class="card-body">
+                    <h3 class="card-title">No Job Found</h3>
+                    
+                </div>
+            </div>
+        </div>
+    <% } %>
+        
+
+        
+    
+</div>

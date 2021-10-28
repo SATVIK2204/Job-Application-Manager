@@ -1,0 +1,65 @@
+<!-- Add JOB FORM -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3 update">
+            <!-- <div class="card update"style="height: 10rem;"> -->
+                <div class="container update">
+                    <p ></p>
+                    <% if (isUpdated) { %>
+                    <p>Success! Edit Complete</p>
+                    
+                    <% } else { %>
+                     <p></p>
+                    <% } %>
+                    <br/>
+                    <h4 class="text-center">UPDATE JOB</h4>
+                    
+                    <form class="row gx-7 gy-2 align-items-center" action="/jobs/<%= job['_id'] %>" method="POST">
+                        <input type="hidden" name="_method" value="PATCH">
+                        <div class="row g-3">
+                    
+                            <div class="col-sm-4 text-center">
+                                <label class="class-label " for="updateCompany">Company</label>
+                                <input type="text" class="form-control" id="updateCompany" name="company" value="<%= job['company'] %>" >
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <label class="class-label" for="updateRole">Role</label>
+                                <div class="input-group">
+                                
+                                    <input type="text" class="form-control" id="updateRole" name="role" value="<%= job['role'] %>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <label class="class-label" for="updateStatus">Status</label>
+                                <select class="form-select" id="updateStatus" name="status">
+                                    <option class="defualt" value="" disabled selected hidden>Select the status</option>
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Interviewing">Interviewing</option>
+                                    <option value="Declined">Declined</option>
+                                    <option value="Pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2 d-md-auto">
+                            <button type="submit" class="btn btn-success">UPDATE</button>
+                            <!-- <button type="submit" class="btn btn-outline-secondary">BACK TO HOME</button> -->
+                        </div>
+                        
+                    </form>
+                    <form action='/homepage' method="GET">
+                        <div class="d-grid gap-2 d-md-auto">
+                            <button type="submit" style="margin-top:7px;" class="btn btn-secondary">BACK TO HOME</button>
+                        </div>
+                    </form>
+                    
+                    
+                    
+                </div>
+            
+
+        </div>
+    </div>
+
+</div>
