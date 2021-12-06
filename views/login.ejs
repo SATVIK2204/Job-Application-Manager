@@ -29,6 +29,9 @@
                         
                     <% if( locals.userExist!= undefined  && userExist) { %>
                         <h4 class="text-center usernot"> User Already Exists</h4>
+
+                    <% }else if(locals.incorrectCred!= undefined  && incorrectCred){ %>   
+                    <h4 class="text-center usernot"> Incorrect Credentials</h4>
                     <% } else {%>
                         <br />
                         <br />

@@ -26,7 +26,6 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   
-  
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -34,10 +33,12 @@ const login = async (req, res) => {
   }
   const user = await User.findOne({ email })
   if (!user) {
+    res.render('login', { layout: './layouts/login', incorrectCred: true });
     throw new UnauthenticatedError('User Not Registered')
   }
   const isPasswordCorrect = await user.comparePassword(password)
   if (!isPasswordCorrect) {
+    res.render('login', { layout: './layouts/login', incorrectCred: true });
     throw new UnauthenticatedError('Invalid Credentials')
   }
 
