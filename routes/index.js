@@ -4,6 +4,12 @@ const authenticateUser = require('../middleware/authentication');
 const Job = require('../models/Job');
 
 router.get('/', async (req, res) => {
+  res.render('main_homepage', {
+    layout: './layouts/login',
+  });
+});
+
+router.get('/login', async (req, res) => {
   res.render('login', {
     layout: './layouts/login',
   });

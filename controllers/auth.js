@@ -4,23 +4,22 @@ const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, UnauthenticatedError } = require('../errors')
 
 const register = async (req, res) => {
-  try {
+  
     
     
-    let user = await User.findOne({ email: req.body.email });
+  let user = await User.findOne({ email: req.body.email });
 
-    if (user) {
-      res.render('login', { layout: './layouts/login', userExist: true });
-    } else {
-      const user = await User.create({ ...req.body });
+  if (user) {
+    res.render('login', { layout: './layouts/login', userExist: true });
+  } else {
+    const user = await User.create({ ...req.body });
 
-      const token = user.createJWT();
-      res.redirect('/');
-      // res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
-    }
-  } catch (err) {
-    console.error(err);
+    const token = user.createJWT();
+    res.redirect('/');
+    // res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
   }
+  
+
   
 }
 
@@ -29,17 +28,20 @@ const login = async (req, res) => {
   const { email, password } = req.body
 
   if (!email || !password) {
+    // res.render('login', { layout: './layouts/login', incorrectCred: true });
     throw new BadRequestError('Please provide email and password')
   }
   const user = await User.findOne({ email })
   if (!user) {
-    res.render('login', { layout: './layouts/login', incorrectCred: true });
-    throw new UnauthenticatedError('User Not Registered')
+    
+    // res.render('login', { layout: './layouts/login', incorrectCred: true });
+    throw new UnauthenticatedError('User Not Registered');
+    
   }
   const isPasswordCorrect = await user.comparePassword(password)
   if (!isPasswordCorrect) {
     res.render('login', { layout: './layouts/login', incorrectCred: true });
-    throw new UnauthenticatedError('Invalid Credentials')
+    // throw new UnauthenticatedError('Invalid Credentials')
   }
 
   // compare password
@@ -60,7 +62,7 @@ const logout = async (req, res) => {
 
   try {
     res.clearCookie('access_token');
-    res.render('login', { layout: './layouts/login' });
+    res.redirect('/');
   } catch (error) {
     throw new UnauthenticatedError('Logout Error');
   }

@@ -1,5 +1,6 @@
 // MISC
 require('dotenv').config();
+require('express-async-errors');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
@@ -22,7 +23,7 @@ const jobsRouter = require('./routes/jobs');
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
-require('express-async-errors');
+
 
 // Setting proxy
 // app.set('trust proxy', 1);
