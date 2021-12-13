@@ -6,7 +6,11 @@
         <div class="col-12 col-sm-6 col-md-3 addnew">
             <form action="/jobs/" method="POST">
                 <div class="form-container-2 row ">
-                    
+
+                        <h4 style="text-align: center;">Please, Enter your Job Application Details</h4>
+                        <br>
+                        <br>
+                     
                         <div class="col-4">
                             <input type="company" class="form-control" placeholder="Company"  name="company">
                         </div>
@@ -46,12 +50,13 @@
 
     <% if (jobs.length) { %>
         <div class="col d-flex justify-content-center">
-            <div class="card homepage text-center" style="width: 18rem;">
+            <!-- <div class="card homepage text-center" >
                 <div class="card-body">
-                    <h3 class="card-title">Your Jobs</h3>
+                    <h3 class="card-title">Here are your Job Applications</h3>
         
                 </div>
-            </div>
+            </div> -->
+            <h3 class="card-title">Here are your Job Applications</h3>
         </div>
         <br/>
         <div class="row row-cols-1 row-cols-md-3 g-4">
